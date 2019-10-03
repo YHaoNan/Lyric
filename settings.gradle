@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name='某句 - 查歌词'

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:layout_height="match_parent" android:padding="20dp">
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/as_back"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/as_search_bar"
+            android:layout_weight="1"
+            android:background="@drawable/edit_underline_bg"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:hint="搜索"
+            android:textSize="14sp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+        <ImageButton
+            android:id="@+id/as_clear"
+            android:layout_marginLeft="-35dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_clear_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="10dp"
+        android:id="@+id/as_search_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="10dp"
+        android:id="@+id/as_search_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>
