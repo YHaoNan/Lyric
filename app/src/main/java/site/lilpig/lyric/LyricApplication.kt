@@ -1,7 +1,7 @@
 package site.lilpig.lyric
 
 import android.app.Application
-import site.lilpig.lyric.requester.CrashHandler
+import site.lilpig.lyric.utils.CrashHandler
 
 var app: LyricApplication? = null
 class LyricApplication : Application(){

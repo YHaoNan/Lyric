@@ -14,15 +14,20 @@
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/http_support"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchActivity"/>
-        <activity android:name=".LyricActivity"/>
+        <activity android:name=".ui.SearchActivity"/>
+        <activity android:name=".ui.LyricActivity"/>
+        <activity android:name=".ui.LyricImageActivity"/>
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>

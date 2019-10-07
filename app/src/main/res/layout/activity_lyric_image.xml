@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#333"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <site.lilpig.lyric.views.StatubarView
+        android:id="@+id/ali_statubar"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_below="@+id/ali_statubar"
+        android:background="@color/colorPrimary"
+        android:id="@+id/ali_toolbar"
+        app:title="歌词图片"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"/>
+
+    <ScrollView
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/ali_image_container"
+        android:layout_weight="1"
+        android:foregroundGravity="center"
+        android:layout_below="@+id/ali_toolbar"
+        android:layout_above="@+id/ali_changebar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ali_changebar"
+        android:padding="10dp"
+        android:background="#eeeeee"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"/>
+</LinearLayout>

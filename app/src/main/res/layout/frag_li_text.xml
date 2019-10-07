@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<site.lilpig.lyric.views.SquareLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:background="#eeeeee" android:padding="20dp" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/frag_li_artist_and_song"
+        android:textColor="#555555"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:background="#555555"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="50dp"
+        android:layout_height="2dp"/>
+    <TextView
+        android:id="@+id/frag_li_lyric"
+        android:textColor="#555555"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:lineHeight="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <ImageView
+        android:id="@+id/frag_li_image"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</site.lilpig.lyric.views.SquareLinearLayout>

@@ -5,25 +5,16 @@ import android.graphics.Color
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_song.view.*
-import site.lilpig.lyric.LyricActivity
+import site.lilpig.lyric.ui.LyricActivity
 import site.lilpig.lyric.R
 import site.lilpig.lyric.app
-import site.lilpig.lyric.bean.Lyric
 import site.lilpig.lyric.bean.Song
-import site.lilpig.lyric.converter.LyricConverter
-import site.lilpig.lyric.requester.NeteaseRequester
-import site.lilpig.lyric.requester.REQUEST_LYRIC
-import site.lilpig.lyric.requester.RequestCallback
-import site.lilpig.lyric.requester.RequestJsonFactory
 import site.lilpig.lyric.utils.join
-import site.lilpig.lyric.utils.toast
 import java.util.regex.Pattern
 
 val TYPE_FOOTER = -1
@@ -62,7 +53,7 @@ class SongListAdapter(val keyword: String,val songs: List<Song>) : RecyclerView.
             holder.view.setOnClickListener({
                 with(holder.view.context){
                     app?.storeAValue("song",song)
-                    startActivity(Intent(this,LyricActivity().javaClass))
+                    startActivity(Intent(this, LyricActivity().javaClass))
                 }
             })
         }

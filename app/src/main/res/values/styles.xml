@@ -11,4 +11,18 @@
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
+    <style name="BottomDialogTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+    </style>
+    <style name="bottom_pop_anim">
+        <item name="android:windowEnterAnimation">@anim/bottom_pop_enter</item>
+        <item name="android:windowExitAnimation">@anim/bottom_pop_exit</item>
+    </style>
 </resources>

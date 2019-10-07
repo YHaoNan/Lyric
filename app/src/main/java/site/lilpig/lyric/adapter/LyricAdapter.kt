@@ -1,6 +1,7 @@
 package site.lilpig.lyric.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +11,23 @@ import kotlinx.android.synthetic.main.item_lyric.view.*
 import org.w3c.dom.Text
 import site.lilpig.lyric.R
 import site.lilpig.lyric.bean.Lyric
+import site.lilpig.lyric.bean.Sentence
 import site.lilpig.lyric.bean.Song
 import site.lilpig.lyric.utils.join
+import site.lilpig.lyric.utils.toast
 
 val TYPE_HEADER_LA = 0
 val TYPE_FOOTER_LA = 1
 val TYPE_NORMAL_LA = 2
 
-class LyricAdapter(val context: Context,val lyric: Lyric, val song: Song): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+interface OnShareModeStartListener{
+    fun changed(bol: Boolean)
+}
+class LyricAdapter(val context: Context,val lyric: Lyric, val song: Song, val onShareModeStartListener: OnShareModeStartListener): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+
+    private var checkedCount = 0
+    private val checkedLyric = Array<Boolean>(lyric.sentences.size,{false})
+
     override fun getItemCount() = lyric.sentences.size + 2
 
     override fun getItemViewType(position: Int) = if (position==0) TYPE_HEADER_LA else if(position > 0 && position < lyric.sentences.size + 1 ) TYPE_NORMAL_LA else TYPE_FOOTER_LA
@@ -26,11 +36,30 @@ class LyricAdapter(val context: Context,val lyric: Lyric, val song: Song): Recyc
         if (holder is LyricViewHolder){
             var sentence = lyric.sentences[position - 1 ]
             holder.lrc.text = sentence.sourceLyric
-            if (sentence.translateLyric == null)
+            if (sentence.translateLyric == null || !_isShowTranslate || sentence.translateLyric?.isBlank()!!)
                 holder.trc.visibility = View.GONE
             else{
                 holder.trc.visibility = View.VISIBLE
                 holder.trc.text = sentence.translateLyric
+            }
+            fun setBG(view:View,checked: Boolean)=
+                view.setBackgroundColor(if (!checked) 0b00000000 else Color.parseColor("#90000000"))
+
+            setBG(holder.view,checkedLyric[position-1])
+            holder.view.setOnClickListener{
+                if (lyric.sentences[position-1].sourceLyric.isBlank()){
+                    return@setOnClickListener
+                }
+                val equalsZeroBefore = checkedCount==0
+                checkedLyric[position-1] = !checkedLyric[position-1]
+                checkedCount += if (checkedLyric[position -1 ]==true) 1 else -1
+                if (checkedCount == 0)
+                    onShareModeStartListener.changed(false)
+                if (equalsZeroBefore && checkedCount == 1)
+                    onShareModeStartListener.changed(true)
+
+                setBG(it, checkedLyric[position-1])
+                false
             }
         }else if (holder is FooterHolder){
             holder.upUser.text = with(StringBuffer()){
@@ -54,8 +83,30 @@ class LyricAdapter(val context: Context,val lyric: Lyric, val song: Song): Recyc
         else if (viewType == TYPE_FOOTER_LA) FooterHolder(LayoutInflater.from(context).inflate(R.layout.item_lyric_footer,parent,false))
         else LyricViewHolder(LayoutInflater.from(context).inflate(R.layout.item_lyric,parent,false))
 
+    fun hasChecked() = checkedCount > 0
+    val hasTranslate: Boolean
+        get() = lyric.sentences.all { it.translateLyric != null }
+    private var _isShowTranslate = true
+    var isShowTranslate: Boolean
+        get() = _isShowTranslate
+        set(bol: Boolean) {
+            _isShowTranslate = bol
+            notifyDataSetChanged()
+        }
+    val checkedLrc: List<String>
+        get(){
+            val lists = mutableListOf<String>()
+            lyric.sentences.forEachIndexed {index: Int, sentence: Sentence ->
+                if (!checkedLyric[index])return@forEachIndexed
+                lists.add(sentence.sourceLyric)
+                if (sentence.translateLyric!=null && isShowTranslate){
+                    lists.add(sentence.translateLyric)
+                }
+            }
+            return lists
+        }
 }
-class LyricViewHolder(view:View): RecyclerView.ViewHolder(view){
+class LyricViewHolder(val view:View): RecyclerView.ViewHolder(view){
     var lrc: TextView
     var trc: TextView
     init {

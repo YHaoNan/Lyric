@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@android:color/black"
     android:layout_height="match_parent">
 
     <ImageView
@@ -18,4 +19,48 @@
         android:id="@+id/al_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <LinearLayout
+        android:id="@+id/al_share_bar"
+        android:background="@drawable/shadow_top_and_down_not_alpha"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <Button
+            android:id="@+id/al_lyric_share"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:textColor="#ffffff"
+            android:text="分享歌词"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/round_stork_bg"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"/>
+        <Button
+            android:id="@+id/al_lyric_image"
+            android:layout_weight="1"
+            android:textColor="#ffffff"
+            android:text="歌词图片"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/round_stork_bg"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"/>
+        <Button
+            android:id="@+id/al_translate_toggle"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="#ffffff"
+            android:text="关闭翻译"
+            android:background="@drawable/round_stork_bg"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"/>
+    </LinearLayout>
 </RelativeLayout>

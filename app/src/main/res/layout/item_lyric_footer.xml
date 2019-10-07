@@ -6,7 +6,12 @@
 
     <TextView
         android:id="@+id/ilf_up_user"
-        android:layout_margin="20dp"
+        android:textSize="10sp"
+        android:textColor="#ffffff"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="80dp"/>
 </LinearLayout>
