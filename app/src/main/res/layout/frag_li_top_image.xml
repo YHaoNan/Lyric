@@ -8,7 +8,7 @@
     <site.lilpig.lyric.views.SquareImageView
         android:id="@+id/frag_li_image"
         android:layout_weight="1"
-        android:scaleType="fitStart"
+        android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <LinearLayout
@@ -43,5 +43,36 @@
             android:text="九月清晨 · 许嵩"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:id="@+id/frag_li_mark"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:background="@drawable/dash_line"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"/>
+            <LinearLayout
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="12sp"
+                    android:layout_weight="1"
+                    android:text="歌词图片使用“某句”生成，扫码试试～"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:src="@drawable/download_qr"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

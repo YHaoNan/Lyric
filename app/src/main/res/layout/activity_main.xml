@@ -70,6 +70,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+        <ImageButton
+            android:id="@+id/am_settings"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="7dp"
+            android:layout_alignBottom="@+id/am_day"
+            android:src="@drawable/ic_settings_black_24dp"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/am_lyric_today"
             android:text="深爱的人，你会如何过余生\n是混沌或虔诚，为谁展露天真"
@@ -82,8 +92,8 @@
         <View
             android:id="@+id/am_lyric_and_artist_split_line"
             android:layout_above="@+id/am_song_and_artist"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
             android:background="#90ffffff"
             android:layout_width="80dp"
             android:layout_height="4dp"/>
@@ -101,7 +111,7 @@
             android:id="@+id/am_share"
             android:layout_alignTop="@+id/am_song_and_artist"
             android:layout_alignParentRight="true"
-            android:src="@drawable/ic_share"
+            android:src="@drawable/ic_music"
             android:background="@android:color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

@@ -4,6 +4,7 @@
     android:layout_height="wrap_content">
 
     <site.lilpig.lyric.views.SquareImageView
+        android:scaleType="centerCrop"
         android:id="@+id/frag_li_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -32,4 +33,27 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:alpha="0.5"
+        android:id="@+id/frag_li_mark"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="50dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/download_qr"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:textSize="12sp"
+            android:text="某句App"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 </RelativeLayout>

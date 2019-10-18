@@ -34,6 +34,7 @@ import site.lilpig.lyric.utils.saveToFile
 
 
 class LyricActivity : AppCompatActivity(){
+    private val mark: String = if(app?.isMarkClosed() ?: false) "" else "\n\n歌词来自“某句”App，宁也来下载试试？https://www.coolapk.com/apk/245764"
     var jsonSource: String? = null
     var lyric: Lyric? = null
     var lyricAdapter: LyricAdapter? = null
@@ -78,7 +79,7 @@ class LyricActivity : AppCompatActivity(){
             else al_translate_toggle.text = "关闭翻译"
         }
         al_lyric_share.setOnClickListener{
-            val lyricText = lyricAdapter?.checkedLrc?.join("\n")
+            val lyricText = lyricAdapter?.checkedLrc?.join("\n") + mark
             val shareMethods:List<DialogItem> = listOf(
                 DialogItem(R.drawable.ic_textsms_black_24dp,"分享文本", View.OnClickListener {
                     var shareIntent = Intent()

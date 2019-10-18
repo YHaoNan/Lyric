@@ -6,10 +6,11 @@
 
     <TextView
         android:background="@drawable/round_bg_dark"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:textSize="12sp"
         android:id="@+id/ih_history"
         android:text="ABASDFADFadf"
         android:layout_margin="5dp"

@@ -1,6 +1,7 @@
 package site.lilpig.lyric
 
 import android.app.Application
+import android.content.Context
 import site.lilpig.lyric.utils.CrashHandler
 
 var app: LyricApplication? = null
@@ -21,5 +22,22 @@ class LyricApplication : Application(){
 
     fun popAValue(key: String): Any{
         return valueStore.remove(key)!!
+    }
+
+    fun isAcceptProtocal(): Boolean =
+        getSharedPreferences("acceptProtocal", Context.MODE_PRIVATE).getBoolean("accept",false);
+
+    fun acceptProtocal(){
+        getSharedPreferences("acceptProtocal",Context.MODE_PRIVATE).edit().putBoolean("accept",true).commit()
+    }
+    fun isMarkClosed(): Boolean{
+        return getSharedPreferences("closeMark",Context.MODE_PRIVATE).getBoolean("close",false)
+    }
+
+    fun openMark(){
+        getSharedPreferences("closeMark",Context.MODE_PRIVATE).edit().putBoolean("close",false).commit()
+    }
+    fun closeMark(){
+        getSharedPreferences("closeMark",Context.MODE_PRIVATE).edit().putBoolean("close",true).commit()
     }
 }

@@ -1,6 +1,7 @@
 package site.lilpig.lyric.ui
 
 import android.annotation.SuppressLint
+import android.opengl.Visibility
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,7 @@ import site.lilpig.lyric.R
 import site.lilpig.lyric.adapter.HistoryAdapter
 import site.lilpig.lyric.adapter.OnItemClick
 import site.lilpig.lyric.utils.HistoryUtil
+import site.lilpig.lyric.utils.toast
 
 
 class SearchActivity : AppCompatActivity(){
@@ -42,6 +44,11 @@ class SearchActivity : AppCompatActivity(){
     private fun initSomethingAboutView() {
         layoutManagerOfSongList = LinearLayoutManager(this)
         as_search_result.layoutManager = layoutManagerOfSongList
+        as_search_history.layoutManager = LinearLayoutManager(this,LinearLayout.HORIZONTAL,false)
+        genHistoryView()
+    }
+
+    private fun genHistoryView(){
         val historyList = HistoryUtil.getHistorys(this)
         historyAdapter = HistoryAdapter(this,historyList!!, object : OnItemClick {
             override fun onclick(i: Int) {
@@ -49,9 +56,8 @@ class SearchActivity : AppCompatActivity(){
                 search(historyList[i])
             }
         })
-        as_search_history.layoutManager = LinearLayoutManager(this,LinearLayout.HORIZONTAL,false)
         as_search_history.adapter = historyAdapter
-
+        as_history_clear_bar.visibility = if (historyList.size >= 1) View.VISIBLE else View.GONE
     }
 
     private fun bindEvent() {
@@ -73,19 +79,29 @@ class SearchActivity : AppCompatActivity(){
         })
         as_clear.setOnClickListener({
             as_search_bar.setText("")
+            as_search_result.visibility = View.GONE
+            as_search_history.visibility = View.VISIBLE
+            as_history_clear_bar.visibility = View.VISIBLE
         })
+        as_delete.setOnClickListener {
+            HistoryUtil.clearHistorys(this)
+            genHistoryView()
+        }
     }
 
     private fun search(keyword: String){
-        as_search_history.visibility = View.GONE
         HistoryUtil.putHistorys(this,keyword)
         neteaseRequester.sendRequest(REQUEST_SEARCH,RequestJsonFactory.search(keyword),
             RequestCallback {
                 if (!it.isNullOrEmpty()){
+                    as_search_result.visibility=View.VISIBLE
+                    as_search_history.visibility = View.GONE
+                    as_history_clear_bar.visibility = View.GONE
                     val songList = SongListConverter().convert(it)
                     songListAdapter = SongListAdapter(keyword,songList)
                     as_search_result.adapter = songListAdapter
-                }
+                }else
+                    toast("没有找到歌曲")
             })
     }
 

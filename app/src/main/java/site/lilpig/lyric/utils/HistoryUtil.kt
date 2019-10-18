@@ -31,5 +31,8 @@ object HistoryUtil{
         preferences.edit().putString("historys",newStr).commit()
 
     }
+    fun clearHistorys(context: Context){
+        getSP(context).edit().putString("historys","").commit()
+    }
 
 }
