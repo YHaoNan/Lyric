@@ -10,8 +10,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import kotlinx.android.synthetic.main.activity_lyric_image.*
 import site.lilpig.lyric.R
 import site.lilpig.lyric.app
@@ -31,7 +29,6 @@ import java.io.File
 
 
 class LyricImageActivity : AppCompatActivity(){
-    private var unbinder: Unbinder? = null
     private val imageFragments: Array<BaseImageFragment> = arrayOf(
         TopImageFragment(),
         BlurImageFragment(),
@@ -42,7 +39,6 @@ class LyricImageActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lyric_image)
-        unbinder = ButterKnife.bind(this)
         initData()
     }
 
@@ -119,9 +115,6 @@ class LyricImageActivity : AppCompatActivity(){
         transaction.commit()
         currentFragment.setData(lyrics,song)
     }
-    override fun onDestroy() {
-        super.onDestroy()
-        unbinder?.unbind()
-    }
+
 }
 

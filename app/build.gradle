@@ -38,8 +38,6 @@ dependencies {
     implementation('com.github.yalantis:ucrop:2.2.4-native',{
         exclude module: "okhttp"
     })
-    implementation 'com.jakewharton:butterknife:10.2.0'
-    kapt 'com.jakewharton:butterknife-compiler:10.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

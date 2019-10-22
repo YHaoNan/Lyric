@@ -7,8 +7,6 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
@@ -38,7 +36,6 @@ class LyricActivity : AppCompatActivity(){
     var jsonSource: String? = null
     var lyric: Lyric? = null
     var lyricAdapter: LyricAdapter? = null
-    var unbinder: Unbinder? = null
     val onShareModeStartListener = object : OnShareModeStartListener {
         override fun changed(bol: Boolean) {
             al_share_bar.visibility = if (bol) View.VISIBLE else View.GONE
@@ -48,7 +45,6 @@ class LyricActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lyric)
-        unbinder = ButterKnife.bind(this)
         al_recyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         val song: Song = app?.popAValue("song") as Song
 
@@ -103,6 +99,9 @@ class LyricActivity : AppCompatActivity(){
                         toast("保存到${savePath}")
                     } else toast("导出翻译失败")
                 }),
+                DialogItem(R.drawable.ic_view_carousel_black_24dp,"歌词悬浮窗",View.OnClickListener {
+                    app?.service?.addLyricWindow(lyricAdapter?.checkedLrc!!)
+                }),
                 DialogItem(R.drawable.ic_cloud_upload_black_24dp,"上传到首页", View.OnClickListener { this@LyricActivity.toast("Method is not implemented...")})
             )
             BottomPopDialog(this,shareMethods).show()
@@ -114,8 +113,4 @@ class LyricActivity : AppCompatActivity(){
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        unbinder?.unbind()
-    }
 }

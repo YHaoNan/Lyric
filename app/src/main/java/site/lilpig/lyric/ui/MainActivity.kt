@@ -2,9 +2,7 @@ package site.lilpig.lyric.ui
 
 import android.Manifest
 import android.app.Activity
-import android.content.ComponentName
-import android.content.DialogInterface
-import android.content.Intent
+import android.content.*
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,19 +11,19 @@ import com.bumptech.glide.Glide
 import android.os.Build
 import android.graphics.Typeface
 import android.net.Uri
+import android.os.IBinder
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
 import site.lilpig.lyric.Config
+import site.lilpig.lyric.LyricApplication
 import site.lilpig.lyric.R
 import site.lilpig.lyric.api_requester.LyricAPIRequester
 import site.lilpig.lyric.app
@@ -35,6 +33,7 @@ import site.lilpig.lyric.bean.Song
 import site.lilpig.lyric.converter.AppverConverter
 import site.lilpig.lyric.converter.EverydayLyricConverter
 import site.lilpig.lyric.netease_requester.RequestCallback
+import site.lilpig.lyric.service.FloatWindowService
 import site.lilpig.lyric.utils.IntentUtils
 import site.lilpig.lyric.utils.toast
 import site.lilpig.lyric.views.OnSwipeListener
@@ -44,12 +43,22 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
+
+    val conn = object : ServiceConnection{
+        override fun onServiceDisconnected(p0: ComponentName?) {
+        }
+
+        override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
+            app?.service = p1 as FloatWindowService.FloatWindowServiceBinder?
+        }
+
+    }
+
     val formatterOfDay = SimpleDateFormat("dd")
     val formatterOfMonth = arrayOf("JAN","FEB","MAR","APR","MAY",
         "JUN","JUL","AUG","SEP","OCT","NOV","DEC")
     val formatterOfYear = SimpleDateFormat("yyyy")
     var todayLyric: EverydayLyric? = null
-    var unbinder: Unbinder? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -81,10 +90,11 @@ class MainActivity : AppCompatActivity() {
             alertDialog.show()
         }
 
-        unbinder = ButterKnife.bind(this)
         initView()
         bindEvent()
         bindData()
+        //Bind Service
+        bindService(Intent(this,FloatWindowService().javaClass),conn, Context.BIND_AUTO_CREATE)
     }
 
     override fun onRequestPermissionsResult(
@@ -100,6 +110,7 @@ class MainActivity : AppCompatActivity() {
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
+
 
     private fun bindData() {
         val date = Date()
@@ -209,7 +220,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        unbinder?.unbind()
+        unbindService(conn)
     }
 
     override fun onResume() {

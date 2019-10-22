@@ -7,8 +7,6 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import kotlinx.android.synthetic.main.activity_setting.*
 import site.lilpig.lyric.R
 import site.lilpig.lyric.app
@@ -23,11 +21,9 @@ import java.io.File
 
 
 class SettingActivity : AppCompatActivity(){
-    var unbinder: Unbinder? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
-        unbinder = ButterKnife.bind(this)
 
         ase_open_lyric.setOnClickListener{
             toast("Method is not implemented!")
@@ -74,8 +70,4 @@ class SettingActivity : AppCompatActivity(){
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        unbinder?.unbind()
-    }
 }

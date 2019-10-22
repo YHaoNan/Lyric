@@ -1,0 +1,23 @@
+<vector android:height="20dp" android:viewportHeight="1000"
+    android:viewportWidth="1000" android:width="20dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#00000000"
+        android:pathData="M266,587.7l-87.7,-87.7l95.3,-95.3"
+        android:strokeColor="#ffffff" android:strokeLineJoin="bevel" android:strokeWidth="40"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M596.5,725.2l-96.5,96.5l-105,-105"
+        android:strokeColor="#ffffff" android:strokeLineJoin="bevel" android:strokeWidth="40"/>
+    <path android:fillColor="#00000000" android:pathData="M596.5,725.2"
+        android:strokeColor="#ffffff" android:strokeLineJoin="bevel" android:strokeWidth="40"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M730,408.3l91.7,91.7l-95.6,95.6"
+        android:strokeColor="#ffffff" android:strokeLineJoin="bevel" android:strokeWidth="40"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M410.5,267.8l89.5,-89.5l96.5,96.5"
+        android:strokeColor="#ffffff" android:strokeLineJoin="bevel" android:strokeWidth="40"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M500,204.3L500,798.2"
+        android:strokeColor="#ffffff" android:strokeLineJoin="bevel" android:strokeWidth="40"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M795.2,502.5L201.3,502.5"
+        android:strokeColor="#ffffff" android:strokeLineJoin="bevel" android:strokeWidth="40"/>
+</vector>

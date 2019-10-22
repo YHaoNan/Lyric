@@ -6,8 +6,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import site.lilpig.lyric.adapter.SongListAdapter
 import site.lilpig.lyric.converter.SongListConverter
 import site.lilpig.lyric.netease_requester.NeteaseRequester
@@ -30,11 +28,9 @@ class SearchActivity : AppCompatActivity(){
     lateinit var songListAdapter: SongListAdapter
     lateinit var layoutManagerOfSongList: RecyclerView.LayoutManager
     lateinit var historyAdapter: HistoryAdapter
-    var unbinder: Unbinder? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-        unbinder = ButterKnife.bind(this)
         neteaseRequester = NeteaseRequester()
         initSomethingAboutView()
         bindEvent()

@@ -2,6 +2,7 @@ package site.lilpig.lyric
 
 import android.app.Application
 import android.content.Context
+import site.lilpig.lyric.service.FloatWindowService
 import site.lilpig.lyric.utils.CrashHandler
 
 var app: LyricApplication? = null
@@ -9,6 +10,7 @@ class LyricApplication : Application(){
 
     private val valueStore = HashMap<String,Any>()
 
+    var service: FloatWindowService.FloatWindowServiceBinder? = null
     override fun onCreate() {
         super.onCreate()
         CrashHandler.init()
@@ -40,4 +42,5 @@ class LyricApplication : Application(){
     fun closeMark(){
         getSharedPreferences("closeMark",Context.MODE_PRIVATE).edit().putBoolean("close",true).commit()
     }
+
 }
