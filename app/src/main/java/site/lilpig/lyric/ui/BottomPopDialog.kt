@@ -49,6 +49,7 @@ open class BPDAdapter(val context: Context,val items: List<DialogItem>) : Recycl
         holder.text.text = items[position].text
         holder.view.setOnClickListener{
             items[position].click.onClick(holder.view)
+
         }
     }
 }
@@ -65,8 +66,6 @@ class BottomPopDialog(context: Context,val items:List<DialogItem>) : Dialog(cont
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_bottom_pop)
-
-
         dbp_recycler.layoutManager = GridLayoutManager(context,4)
         dbp_recycler.adapter = BPDAdapter(context,items)
     }

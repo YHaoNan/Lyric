@@ -1,6 +1,7 @@
 package site.lilpig.lyric.ui
 
 import android.app.Dialog
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -24,6 +25,8 @@ import site.lilpig.lyric.utils.BlurTransformation
 import site.lilpig.lyric.utils.join
 import site.lilpig.lyric.utils.toast
 import android.content.Intent
+import android.os.Build
+import android.provider.Settings
 import site.lilpig.lyric.R
 import site.lilpig.lyric.app
 import site.lilpig.lyric.converter.LrcConverter
@@ -100,7 +103,12 @@ class LyricActivity : AppCompatActivity(){
                     } else toast("导出翻译失败")
                 }),
                 DialogItem(R.drawable.ic_view_carousel_black_24dp,"歌词悬浮窗",View.OnClickListener {
-                    app?.service?.addLyricWindow(lyricAdapter?.checkedLrc!!)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+                        toast("请赋予显示在其他应用上层权限")
+                        val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
+                        startActivity(intent)
+                    }else
+                        app?.service?.addLyricWindow(lyricAdapter?.checkedLrc!!)
                 }),
                 DialogItem(R.drawable.ic_cloud_upload_black_24dp,"上传到首页", View.OnClickListener { this@LyricActivity.toast("Method is not implemented...")})
             )

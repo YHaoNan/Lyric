@@ -20,7 +20,7 @@ class FloatWindowService : Service(){
     inner class FloatWindowServiceBinder : Binder(){
         /**
          * Add a lyric window
-         * @param lyric The lyric that need showing
+         * @param lyric The lyric that need to showing
          * @return The id of the window . Use it when you wanna remove this window from screen.
          */
         fun addLyricWindow(lyric: List<String>): String{

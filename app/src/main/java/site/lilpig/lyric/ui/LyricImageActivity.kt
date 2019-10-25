@@ -104,7 +104,7 @@ class LyricImageActivity : AppCompatActivity(){
             )
         }
         ali_changebar.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-        ali_changebar.adapter = BPDAdapter(this,convertBarData)
+        ali_changebar.adapter = BPDAdapter(this, convertBarData)
         changeFragment(imageFragments[0],lyrics,song)
     }
 
