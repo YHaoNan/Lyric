@@ -112,6 +112,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
     private fun bindData() {
         val date = Date()
         am_month_and_year.text = formatterOfMonth[date.month] +" · "+ formatterOfYear.format(date)
@@ -154,7 +155,7 @@ class MainActivity : AppCompatActivity() {
                         val dialog = AlertDialog.Builder(this@MainActivity)
                         dialog.setTitle("新版本"+appver.ver)
                         dialog.setMessage(appver.info)
-                        dialog.setCancelable(appver.isforce == 1)
+                        dialog.setCancelable(appver.isforce == 0)
                         dialog.setPositiveButton("更新",DialogInterface.OnClickListener{ iface,i->
                             IntentUtils.openInBrowser(this@MainActivity,appver.url)
                         })
@@ -192,7 +193,7 @@ class MainActivity : AppCompatActivity() {
         am_song_and_artist.setOnClickListener(toLyricPage)
         am_lyric_today.setOnClickListener(toLyricPage)
         am_share.setOnClickListener {
-            IntentUtils.openInBrowser(this,"https://music.163.com/#/song?id="+todayLyric?.neteaseid)
+            IntentUtils.openInBrowser(this,"orpheus://song/"+todayLyric?.neteaseid)
         }
         am_settings.setOnClickListener {
             startActivity(Intent(this,SettingActivity().javaClass))

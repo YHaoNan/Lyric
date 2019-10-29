@@ -27,6 +27,7 @@ import site.lilpig.lyric.utils.toast
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings
+import android.view.KeyEvent
 import site.lilpig.lyric.R
 import site.lilpig.lyric.app
 import site.lilpig.lyric.converter.LrcConverter
@@ -45,6 +46,16 @@ class LyricActivity : AppCompatActivity(){
         }
     }
 
+
+    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (lyricAdapter?.hasChecked() ?: false){
+                lyricAdapter?.clearChecked()
+            }else
+                finish()
+        }
+        return true
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lyric)

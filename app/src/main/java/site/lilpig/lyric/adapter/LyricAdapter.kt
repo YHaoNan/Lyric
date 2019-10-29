@@ -2,9 +2,11 @@ package site.lilpig.lyric.adapter
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_lyric.view.*
@@ -13,6 +15,8 @@ import site.lilpig.lyric.R
 import site.lilpig.lyric.bean.Lyric
 import site.lilpig.lyric.bean.Sentence
 import site.lilpig.lyric.bean.Song
+import site.lilpig.lyric.utils.DisplayUtil
+import site.lilpig.lyric.utils.IntentUtils
 import site.lilpig.lyric.utils.join
 import site.lilpig.lyric.utils.toast
 
@@ -24,10 +28,14 @@ interface OnShareModeStartListener{
     fun changed(bol: Boolean)
 }
 class LyricAdapter(val context: Context,val lyric: Lyric, val song: Song, val onShareModeStartListener: OnShareModeStartListener): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+    private val dotDrawable = context.getDrawable(R.drawable.dot_white)
 
     private var checkedCount = 0
-    private val checkedLyric = Array<Boolean>(lyric.sentences.size,{false})
+    private var checkedLyric = Array<Boolean>(lyric.sentences.size,{false})
 
+    init {
+        dotDrawable?.bounds = Rect(0,0,DisplayUtil.dip2px(context,10f),DisplayUtil.dip2px(context,10f))
+    }
     override fun getItemCount() = lyric.sentences.size + 2
 
     override fun getItemViewType(position: Int) = if (position==0) TYPE_HEADER_LA else if(position > 0 && position < lyric.sentences.size + 1 ) TYPE_NORMAL_LA else TYPE_FOOTER_LA
@@ -42,10 +50,12 @@ class LyricAdapter(val context: Context,val lyric: Lyric, val song: Song, val on
                 holder.trc.visibility = View.VISIBLE
                 holder.trc.text = sentence.translateLyric
             }
-            fun setBG(view:View,checked: Boolean)=
+            fun setBG(view:View,checked: Boolean){
                 view.setBackgroundColor(if (!checked) 0b00000000 else Color.parseColor("#90000000"))
+            }
 
             setBG(holder.view,checkedLyric[position-1])
+            holder.lrc.setCompoundDrawables(if (checkedLyric[position-1]) dotDrawable else null,null,null,null)
             holder.view.setOnClickListener{
                 if (lyric.sentences[position-1].sourceLyric.isBlank()){
                     return@setOnClickListener
@@ -57,8 +67,8 @@ class LyricAdapter(val context: Context,val lyric: Lyric, val song: Song, val on
                     onShareModeStartListener.changed(false)
                 if (equalsZeroBefore && checkedCount == 1)
                     onShareModeStartListener.changed(true)
-
                 setBG(it, checkedLyric[position-1])
+                holder.lrc.setCompoundDrawables(if (checkedLyric[position-1]) dotDrawable else null,null,null,null)
                 false
             }
         }else if (holder is FooterHolder){
@@ -75,6 +85,9 @@ class LyricAdapter(val context: Context,val lyric: Lyric, val song: Song, val on
         }else if (holder is HeaderHolder){
             holder.songName.text = song.name
             holder.artists.text = song.artists.join(" / ")
+            holder.songName.setOnClickListener{
+                IntentUtils.openInBrowser(context,"orpheus://song/"+song.id)
+            }
         }
     }
 
@@ -105,6 +118,12 @@ class LyricAdapter(val context: Context,val lyric: Lyric, val song: Song, val on
             }
             return lists
         }
+    fun clearChecked(){
+        checkedCount = 0 //Tmp
+        checkedLyric = Array<Boolean>(lyric.sentences.size,{b->false})
+        onShareModeStartListener.changed(false)
+        notifyDataSetChanged()
+    }
 }
 class LyricViewHolder(val view:View): RecyclerView.ViewHolder(view){
     var lrc: TextView

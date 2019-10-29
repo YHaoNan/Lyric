@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:gravity="center" android:layout_width="match_parent"
+    android:orientation="vertical"  android:gravity="center" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/ilh_song_name"
         android:textSize="18sp"
         android:textColor="#eeeeee"
+        android:drawableRight="@drawable/ic_music_note_black_24dp"
         android:shadowColor="#333333"
         android:shadowDx="1"
         android:shadowDy="1"
