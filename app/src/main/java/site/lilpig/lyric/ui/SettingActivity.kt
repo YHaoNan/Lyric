@@ -1,43 +1,42 @@
 package site.lilpig.lyric.ui
 
+import android.app.Activity
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
-import android.view.ViewGroup
+import android.os.Environment
+import android.util.Log
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.kimcy929.simple_file_chooser.FileChooserActivity
 import kotlinx.android.synthetic.main.activity_setting.*
 import site.lilpig.lyric.R
 import site.lilpig.lyric.app
 import site.lilpig.lyric.utils.toast
-import android.content.ActivityNotFoundException
-import android.content.Intent
-import android.net.Uri
-import android.os.Environment
-import androidx.core.content.FileProvider
-import site.lilpig.lyric.BuildConfig
-import java.io.File
 
 
 class SettingActivity : AppCompatActivity(){
+    val DIR_IMG = 0
+    val DIR_LRC = 1
+    fun chooseDir(dirType: Int){
+        val initPath = if (dirType == DIR_IMG) ase_cur_img_dir.text.toString() else ase_cur_lrc_dir.text.toString()
+        val directoryIntent = Intent(this, FileChooserActivity::class.java)
+        directoryIntent.putExtra(FileChooserActivity.INIT_DIRECTORY_EXTRA,initPath)
+        directoryIntent.putExtra(FileChooserActivity.GET_ONLY_DIRECTORY_PATH_FILE_EXTRA, false)
+        startActivityForResult(directoryIntent, dirType)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
+        ase_cur_lrc_dir.text = app?.getLrcStorePath()
+        ase_cur_img_dir.text = app?.getImgStorePath()
 
-        ase_open_lyric.setOnClickListener{
-            toast("Method is not implemented!")
-//            val intent = Intent(Intent.ACTION_GET_CONTENT)
-//            intent.addCategory(Intent.CATEGORY_DEFAULT)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//            val uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".fileProvider",File(Environment.getExternalStorageDirectory().absolutePath+"/mj_lyric/lyrics"))
-//            intent.setDataAndType(uri, "*/*")
-//            try {
-//                startActivity(Intent.createChooser(intent,"选择浏览工具"));
-//            } catch (e: ActivityNotFoundException) {
-//                e.printStackTrace()
-//            }
-//
+        ase_lyric_dir.setOnClickListener{
+            chooseDir(DIR_LRC)
+        }
+        ase_img_dir.setOnClickListener{
+            chooseDir(DIR_IMG)
         }
 
         ase_close_mark.setOnClickListener{
@@ -67,6 +66,26 @@ class SettingActivity : AppCompatActivity(){
             imageView.setImageResource(R.drawable.mmgrant)
             dialog.setView(imageView)
             dialog.show()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        toast("OAR,resultCode ="+resultCode+",requestCode ="+requestCode+",data="+data)
+        if (data != null && (requestCode == DIR_IMG || requestCode == DIR_LRC)){
+            val path = data.getStringExtra(FileChooserActivity.RESULT_DIRECTORY_EXTRA)
+            if (path==null){
+                toast("出了点错误")
+                return
+            }
+            Log.i("PATH",path)
+            if (requestCode == DIR_IMG){
+                app?.setImgStorePath(path)
+                ase_cur_img_dir.text = path
+            }else if (requestCode == DIR_LRC){
+                app?.setLrcStorePath(path)
+                ase_cur_lrc_dir.text = path
+            }
         }
     }
 

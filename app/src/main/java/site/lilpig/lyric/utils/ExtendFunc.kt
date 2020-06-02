@@ -42,23 +42,29 @@ fun <T>List<T>?.safeGet(index: Int) = try {
     this?.get(index)
 }catch (e: IndexOutOfBoundsException){null}
 
-
-
-fun String.saveToFile(path: String,filename: String):String {
-    val defaultDir = File(Environment.getExternalStorageDirectory(),"mj_lyric")
-    if (!defaultDir.exists() || defaultDir.isFile){
-        defaultDir.mkdir()
-    }
-    val path = File(defaultDir,path)
-    if(!path.exists() || path.isFile){
-        path.mkdirs()
+interface FosAndFile{
+    val fos: FileOutputStream
+    val file: File
+}
+fun getFF(path: String, filename:String): FosAndFile{
+    val saveDir = File(path)
+    if (!saveDir.exists() || saveDir.isFile){
+        saveDir.mkdirs()
     }
 
     val fileToSave = File(path,filename)
     val os = FileOutputStream(fileToSave)
-    os?.write(this.toByteArray())
-    os?.close()
-    return fileToSave.absolutePath
+    return object : FosAndFile{
+        override val fos = os
+        override val file = fileToSave
+    }
+}
+
+fun String.saveToFile(path: String,filename: String):String {
+    val ff = getFF(path,filename)
+    ff.fos.write(this.toByteArray())
+    ff.fos.close()
+    return ff.file.absolutePath
 }
 
 fun ScrollView.generateImage(): Bitmap{
@@ -73,20 +79,11 @@ fun ScrollView.generateImage(): Bitmap{
     draw(canvas)
     return bitmap;
 }
-fun Bitmap.saveToGallery(context:Context,path: String,filename: String): String{
-    val defaultDir = File(Environment.getExternalStorageDirectory(),"mj_lyric")
-    if (!defaultDir.exists() || defaultDir.isFile){
-        defaultDir.mkdir()
-    }
-    val path = File(defaultDir,path)
-    if(!path.exists() || path.isFile){
-        path.mkdirs()
-    }
 
-    val fileToSave = File(path,filename)
-    val fos = FileOutputStream(fileToSave)
-    compress(Bitmap.CompressFormat.JPEG,100,fos)
-    fos.flush()
-    context.sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(fileToSave)))
-    return fileToSave.absolutePath
+fun Bitmap.saveToGallery(context:Context,path: String,filename: String): String{
+    val ff = getFF(path,filename)
+    compress(Bitmap.CompressFormat.JPEG,100,ff.fos)
+    ff.fos.flush()
+    context.sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(ff.file)))
+    return ff.file.absolutePath
 }

@@ -11,8 +11,8 @@ android {
         applicationId "site.lilpig.lyric"
         minSdkVersion 22
         targetSdkVersion 29
-        versionCode 3
-        versionName "v1.4.1"
+        versionCode 4
+        versionName "v1.4.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -35,9 +35,11 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0-alpha1'
     implementation 'androidx.core:core-ktx:1.0.2'
     implementation 'com.github.bumptech.glide:glide:4.6.1'
+    implementation 'com.github.kimcy929:FileChooser:v1.0.1'
     implementation('com.github.yalantis:ucrop:2.2.4-native',{
         exclude module: "okhttp"
     })
+    implementation 'androidx.palette:palette:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

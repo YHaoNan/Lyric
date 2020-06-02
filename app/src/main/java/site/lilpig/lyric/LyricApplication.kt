@@ -43,4 +43,16 @@ class LyricApplication : Application(){
         getSharedPreferences("closeMark",Context.MODE_PRIVATE).edit().putBoolean("close",true).commit()
     }
 
+    fun getImgStorePath():String{
+        return getSharedPreferences("contentDirs",Context.MODE_PRIVATE).getString("imgDir",Config.DEFAULT_IMG_DIR)!!
+    }
+    fun getLrcStorePath():String{
+        return getSharedPreferences("contentDirs",Context.MODE_PRIVATE).getString("lrcDir",Config.DEFAULT_LRC_DIR)!!
+    }
+    fun setImgStorePath(dir: String){
+        getSharedPreferences("contentDirs",Context.MODE_PRIVATE).edit().putString("imgDir",dir).commit()
+    }
+    fun setLrcStorePath(dir: String){
+        getSharedPreferences("contentDirs",Context.MODE_PRIVATE).edit().putString("lrcDir",dir).commit()
+    }
 }

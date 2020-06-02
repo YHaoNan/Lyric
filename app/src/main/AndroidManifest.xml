@@ -12,6 +12,7 @@
         android:icon="@drawable/lyric_logo_small"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/http_support"
         android:theme="@style/AppTheme">

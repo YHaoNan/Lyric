@@ -3,6 +3,7 @@ package site.lilpig.lyric.adapter
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Rect
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -106,6 +107,39 @@ class LyricAdapter(val context: Context,val lyric: Lyric, val song: Song, val on
             _isShowTranslate = bol
             notifyDataSetChanged()
         }
+    fun reverse(){
+        for(i in 0..lyric.sentences.size - 1){
+            checkedLyric[i] = !checkedLyric[i]
+        }
+        notifyDataSetChanged()
+    }
+    fun expend(){
+        var startI = -1
+        for (start in 0..lyric.sentences.size){
+            if (checkedLyric[start]){
+                startI = start
+                break
+            }
+        }
+
+        if (startI == -1) return
+        var endI = -1
+        for (end in lyric.sentences.size - 1 downTo startI + 1){
+            if (checkedLyric[end]){
+                endI = end
+                break
+            }
+        }
+        if (endI != -1 ){
+            for (i in startI..endI){
+                if (lyric.sentences[i].sourceLyric != "")
+                    checkedLyric[i] = true
+            }
+            notifyDataSetChanged()
+        }
+    }
+
+
     val checkedLrc: List<String>
         get(){
             val lists = mutableListOf<String>()

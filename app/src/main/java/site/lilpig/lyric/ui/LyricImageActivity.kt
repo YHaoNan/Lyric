@@ -14,15 +14,13 @@ import kotlinx.android.synthetic.main.activity_lyric_image.*
 import site.lilpig.lyric.R
 import site.lilpig.lyric.app
 import site.lilpig.lyric.bean.Song
-import site.lilpig.lyric.lyric_image.BaseImageFragment
-import site.lilpig.lyric.lyric_image.BlurImageFragment
-import site.lilpig.lyric.lyric_image.TextImageFragment
-import site.lilpig.lyric.lyric_image.TopImageFragment
 import site.lilpig.lyric.utils.generateImage
 import site.lilpig.lyric.utils.saveToGallery
 import site.lilpig.lyric.utils.toast
 import java.util.*
 import com.yalantis.ucrop.UCrop
+import site.lilpig.lyric.Config
+import site.lilpig.lyric.lyric_image.*
 import java.io.File
 
 
@@ -31,6 +29,8 @@ import java.io.File
 class LyricImageActivity : AppCompatActivity(){
     private val imageFragments: Array<BaseImageFragment> = arrayOf(
         TopImageFragment(),
+        TopImageGradientFragment(),
+//        TopImageGradient2Fragment(),
         BlurImageFragment(),
         TextImageFragment()
     )
@@ -77,14 +77,20 @@ class LyricImageActivity : AppCompatActivity(){
                 startActivityForResult(intent_gallery, 1)
             }
             R.id.lim_save -> {
-                val path = ali_image_container.generateImage().saveToGallery(this,"imagesOut",Date().time.toString()+".jpg")
-                toast("保存到${path}")
-                val imageUri = Uri.parse(path);
-                val shareIntent = Intent();
-                shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-                shareIntent.setType("image/*");
-                startActivity(Intent.createChooser(shareIntent, "分享歌词图片"));
+                val dir = app?.getImgStorePath()
+                if(dir==null){
+                    toast("保存失败")
+                }else{
+                    val path = ali_image_container.generateImage().saveToGallery(this,
+                        dir,Date().time.toString()+".jpg")
+                    toast("保存到${path}")
+                    val imageUri = Uri.parse(path);
+                    val shareIntent = Intent();
+                    shareIntent.setAction(Intent.ACTION_SEND);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+                    shareIntent.setType("image/*");
+                    startActivity(Intent.createChooser(shareIntent, "分享歌词图片"));
+                }
             }
         }
         return super.onOptionsItemSelected(item)

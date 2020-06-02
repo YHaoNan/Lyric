@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:layout_height="match_parent">
+
+
+
+    <site.lilpig.lyric.views.SquareImageView
+        android:id="@+id/frag_li_image"
+        android:layout_weight="1"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:background="@drawable/alpha_to_white_gradient"
+        android:layout_alignRight="@+id/frag_li_image"
+        android:layout_alignLeft="@id/frag_li_image"
+        android:layout_alignTop="@id/frag_li_image"
+        android:layout_alignBottom="@id/frag_li_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/fltig_background"
+        android:layout_below="@+id/frag_li_image"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="20dp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/frag_li_lyric"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="40dp"
+            android:textSize="18sp"
+            android:lineHeight="30dp"
+            android:textColor="#555555"
+            android:typeface="serif"
+            android:gravity="center"
+            android:text="深爱的人，可不可以爱一生\n你说何必想太远\n给了我一个吻"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:gravity="right"
+            android:id="@+id/frag_li_artist_and_song"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:typeface="serif"
+            android:text="九月清晨 · 许嵩"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:id="@+id/frag_li_mark"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:background="@drawable/dash_line"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"/>
+            <LinearLayout
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="12sp"
+                    android:layout_weight="1"
+                    android:text="歌词图片使用“某句”生成，扫码试试～"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:src="@drawable/download_qr"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

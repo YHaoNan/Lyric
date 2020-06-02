@@ -28,6 +28,7 @@ import android.content.Intent
 import android.os.Build
 import android.provider.Settings
 import android.view.KeyEvent
+import site.lilpig.lyric.Config
 import site.lilpig.lyric.R
 import site.lilpig.lyric.app
 import site.lilpig.lyric.converter.LrcConverter
@@ -85,8 +86,8 @@ class LyricActivity : AppCompatActivity(){
         al_translate_toggle.setOnClickListener{
             var cur = lyricAdapter?.isShowTranslate
             lyricAdapter?.isShowTranslate = !cur!!
-            if (cur==true) al_translate_toggle.text = "打开翻译"
-            else al_translate_toggle.text = "关闭翻译"
+            if (cur==true) al_translate_toggle.text = "翻译"
+            else al_translate_toggle.text = "关闭"
         }
         al_lyric_share.setOnClickListener{
             val lyricText = lyricAdapter?.checkedLrc?.join("\n") + mark
@@ -101,15 +102,17 @@ class LyricActivity : AppCompatActivity(){
                 }),
                 DialogItem(R.drawable.ic_insert_drive_file_black_24dp,"导出lrc", View.OnClickListener {
                     val lrcText = LrcConverter().convert(jsonSource)
-                    if(lrcText!=null){
-                        val savePath  = lrcText.saveToFile("lyrics",song.name+".lrc")
+                    val lrcPath = app?.getLrcStorePath()
+                    if(lrcText!=null && lrcPath!=null && lrcText!=null){
+                        val savePath  = lrcText.saveToFile(lrcPath,song.name+".lrc")
                         toast("保存到${savePath}")
                     } else toast("导出lrc失败")
                 }),
                 DialogItem(R.drawable.ic_insert_drive_file_black_24dp,"导出翻译", View.OnClickListener {
                     val trcText = TrcConverter().convert(jsonSource)
-                    if(trcText!=null){
-                        val savePath  = trcText.saveToFile("lyrics",song.name+"-tr.lrc")
+                    val lrcPath = app?.getLrcStorePath()
+                    if(trcText!=null && lrcPath!=null && trcText!="null"){
+                        val savePath  = trcText.saveToFile(lrcPath,song.name+"-tr.lrc")
                         toast("保存到${savePath}")
                     } else toast("导出翻译失败")
                 }),
@@ -129,6 +132,12 @@ class LyricActivity : AppCompatActivity(){
             app?.storeAValue("lyrics",lyricAdapter?.checkedLrc!!)
             app?.storeAValue("song",song)
             startActivity(Intent(this,LyricImageActivity().javaClass))
+        }
+        al_expand.setOnClickListener{
+            lyricAdapter?.expend()
+        }
+        al_reverse.setOnClickListener{
+            lyricAdapter?.reverse()
         }
     }
 
