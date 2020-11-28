@@ -1,24 +1,25 @@
 package site.lilpig.lyric.ui
 
 import android.annotation.SuppressLint
-import android.opengl.Visibility
 import android.os.Bundle
+import android.transition.Transition
+import android.transition.TransitionInflater
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_search.*
+import site.lilpig.lyric.R
+import site.lilpig.lyric.adapter.HistoryAdapter
+import site.lilpig.lyric.adapter.OnItemClick
 import site.lilpig.lyric.adapter.SongListAdapter
 import site.lilpig.lyric.converter.SongListConverter
 import site.lilpig.lyric.netease_requester.NeteaseRequester
 import site.lilpig.lyric.netease_requester.REQUEST_SEARCH
 import site.lilpig.lyric.netease_requester.RequestCallback
 import site.lilpig.lyric.netease_requester.RequestJsonFactory
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.*
-import kotlinx.android.synthetic.main.activity_search.*
-import site.lilpig.lyric.R
-import site.lilpig.lyric.adapter.HistoryAdapter
-import site.lilpig.lyric.adapter.OnItemClick
 import site.lilpig.lyric.utils.HistoryUtil
 import site.lilpig.lyric.utils.toast
 
@@ -31,9 +32,16 @@ class SearchActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+        setActivityAnimation()
         neteaseRequester = NeteaseRequester()
         initSomethingAboutView()
         bindEvent()
+    }
+
+    private fun setActivityAnimation() {
+        val slide: Transition =
+            TransitionInflater.from(this).inflateTransition(R.transition.activity_slide_in)
+        window.enterTransition = slide
     }
 
     @SuppressLint("WrongConstant")

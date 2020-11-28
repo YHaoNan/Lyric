@@ -25,7 +25,7 @@
         <EditText
             android:id="@+id/as_search_bar"
             android:layout_weight="1"
-            android:background="@drawable/edit_underline_bg"
+            android:transitionName="@string/search_bar"
             android:padding="5dp"
             android:singleLine="true"
             android:imeOptions="actionSearch"

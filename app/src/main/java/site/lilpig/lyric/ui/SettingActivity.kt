@@ -49,6 +49,10 @@ class SettingActivity : AppCompatActivity(){
             }
         }
 
+        ase_opensource.setOnClickListener{
+            startActivity(Intent(this,OpenSourceActivity().javaClass))
+        }
+
         ase_about.setOnClickListener{
             val dialog = AlertDialog.Builder(this)
             dialog.setTitle("关于")
@@ -59,6 +63,7 @@ class SettingActivity : AppCompatActivity(){
             })
             dialog.show()
         }
+
         ase_grant.setOnClickListener{
             val dialog = AlertDialog.Builder(this)
             dialog.setTitle("捐助")
@@ -71,7 +76,6 @@ class SettingActivity : AppCompatActivity(){
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        toast("OAR,resultCode ="+resultCode+",requestCode ="+requestCode+",data="+data)
         if (data != null && (requestCode == DIR_IMG || requestCode == DIR_LRC)){
             val path = data.getStringExtra(FileChooserActivity.RESULT_DIRECTORY_EXTRA)
             if (path==null){
@@ -88,5 +92,4 @@ class SettingActivity : AppCompatActivity(){
             }
         }
     }
-
 }

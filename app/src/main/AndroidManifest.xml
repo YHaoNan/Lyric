@@ -27,6 +27,7 @@
         <activity android:name=".ui.LyricActivity"/>
         <activity android:name=".ui.LyricImageActivity"/>
         <activity android:name=".ui.SettingActivity"/>
+        <activity android:name=".ui.OpenSourceActivity"/>
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"

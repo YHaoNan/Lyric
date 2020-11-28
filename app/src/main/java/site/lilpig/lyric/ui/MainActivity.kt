@@ -1,38 +1,30 @@
 package site.lilpig.lyric.ui
 
 import android.Manifest
-import android.app.Activity
+import android.app.ActivityOptions
 import android.content.*
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.view.WindowManager
-import com.bumptech.glide.Glide
-import android.os.Build
 import android.graphics.Typeface
 import android.net.Uri
+import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
 import site.lilpig.lyric.Config
-import site.lilpig.lyric.LyricApplication
 import site.lilpig.lyric.R
-import site.lilpig.lyric.api_requester.LyricAPIRequester
 import site.lilpig.lyric.app
-import site.lilpig.lyric.bean.Appver
 import site.lilpig.lyric.bean.EverydayLyric
 import site.lilpig.lyric.bean.Song
 import site.lilpig.lyric.converter.AppverConverter
 import site.lilpig.lyric.converter.EverydayLyricConverter
-import site.lilpig.lyric.netease_requester.RequestCallback
 import site.lilpig.lyric.service.FloatWindowService
 import site.lilpig.lyric.utils.IntentUtils
 import site.lilpig.lyric.utils.toast
@@ -203,11 +195,16 @@ class MainActivity : AppCompatActivity() {
     fun toSearchActivity(){
         val toSearchIntent = Intent(this, SearchActivity().javaClass)
         setTextAlpha(0f)
-        startActivity(toSearchIntent)
-        overridePendingTransition(
-            R.anim.anim_activity_bottom_fade_in,
-            R.anim.anim_activty_hide_out
-        )
+        val sharedView: View = am_search_bar
+        val transitionName = getString(R.string.search_bar)
+
+        val transitionActivityOptions: ActivityOptions =
+            ActivityOptions.makeSceneTransitionAnimation(
+                this@MainActivity,
+                sharedView,
+                transitionName
+            )
+        startActivity(toSearchIntent,transitionActivityOptions.toBundle())
     }
     fun setTextAlpha(alpha: Float){
         am_bg_container.alpha = alpha
